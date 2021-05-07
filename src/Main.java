@@ -5,14 +5,23 @@ import models.CreditCard.Card;
 import models.Organizer.Organizer;
 import models.Price.Price;
 import models.User.User;
+import services.Service;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         // We initialize the service that creates cards, users, organizers and prices
-        Service service = new Service();
+        Service service = Service.getInstance();
+
+        try {
+            service.loadFromCsv();
+        } catch (FileNotFoundException e) {
+            System.out.println("Couldn't load data from csv.");
+        }
 
         // 1. Creating a card for a user
         Card bobCard = service.createCard(100000, "RON");
@@ -102,5 +111,11 @@ public class Main {
         bobOrganzier.cancelAuction(bobServiceAuction);
         System.out.println("\nTrying to cancel an auction after it's been canceled:");
         bobOrganzier.cancelAuction(bobServiceAuction);
+
+        try {
+            service.saveToCsv();
+        } catch (IOException e) {
+            System.out.println("Couldn't save data to csv.");
+        }
     }
 }

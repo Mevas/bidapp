@@ -23,3 +23,9 @@
 10. Cancel an auction
 11. Get best bid of an auction
 12. Other misc actions
+
+## CSV
+1. Users
+2. Organizers
+3. Auctions (both product and service)
+4. Bids

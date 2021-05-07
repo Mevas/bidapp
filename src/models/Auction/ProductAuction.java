@@ -5,14 +5,15 @@ import models.Price.Price;
 import models.User.User;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Product auctions are the normal type of auctions, where the bidders bid for getting a product from the auctioneer
  * Price is sorted from highest to lowest
  */
 public class ProductAuction extends Auction {
-    public ProductAuction(LocalDateTime start, LocalDateTime end, String location, Price initialPrice, Organizer organizer) {
-        super(start, end, location, initialPrice, organizer);
+    public ProductAuction(UUID id, LocalDateTime start, LocalDateTime end, String location, Price initialPrice, Organizer organizer) {
+        super(id, start, end, location, initialPrice, organizer);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package models.Price;
 
+import java.util.List;
+
 public class Price {
     private final double value;
     private final String currency;
@@ -12,6 +14,12 @@ public class Price {
     @Override
     public String toString() {
         return String.format("%s %s", this.value, this.currency);
+    }
+
+    public static Price fromString(String string) {
+        String[] things = string.split(" ");
+
+        return new Price(Float.parseFloat(things[0]), things[1]);
     }
 
     public double getValue() {

@@ -5,14 +5,15 @@ import models.Price.Price;
 import models.User.User;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Service auctions are the type of auction where the auctioneer is the one paying, for a service provided by the bidders
  * Price is sorted from lowest to highest
  */
 public class ServiceAuction extends Auction {
-    public ServiceAuction(LocalDateTime start, LocalDateTime end, String location, Price initialPrice, Organizer organizer) {
-        super(start, end, location, initialPrice, organizer);
+    public ServiceAuction(UUID id, LocalDateTime start, LocalDateTime end, String location, Price initialPrice, Organizer organizer) {
+        super(id, start, end, location, initialPrice, organizer);
     }
 
     @Override
