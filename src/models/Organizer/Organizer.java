@@ -18,8 +18,8 @@ import java.util.UUID;
 public class Organizer {
     private final UUID id;
     private final User user;
-    private final List<ProductAuction> productAuctions = new ArrayList<>();
-    private final List<ServiceAuction> serviceAuctions = new ArrayList<>();
+    private List<ProductAuction> productAuctions = new ArrayList<>();
+    private List<ServiceAuction> serviceAuctions = new ArrayList<>();
     private final AuditService auditService;
 
     public Organizer(UUID id, User user) {
@@ -124,5 +124,13 @@ public class Organizer {
                 this.serviceAuctions.add((ServiceAuction) auction);
             }
         }
+    }
+
+    public void setProductAuctions(List<ProductAuction> productAuctions) {
+        this.productAuctions = productAuctions;
+    }
+
+    public void setServiceAuctions(List<ServiceAuction> serviceAuctions) {
+        this.serviceAuctions = serviceAuctions;
     }
 }

@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public class User {
     private final UUID id;
-    private final String name;
-    private final Card card;
+    private String name;
+    private Card card;
 
     public User(UUID id, String name, Card card) {
         this.id = id;
@@ -44,5 +44,13 @@ public class User {
 
     public Card getCard() {
         return card;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 }

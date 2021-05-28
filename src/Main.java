@@ -5,10 +5,12 @@ import models.CreditCard.Card;
 import models.Organizer.Organizer;
 import models.Price.Price;
 import models.User.User;
+import services.DatabaseService;
 import services.Service;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
@@ -17,11 +19,14 @@ public class Main {
         // We initialize the service that creates cards, users, organizers and prices
         Service service = Service.getInstance();
 
-        try {
-            service.loadFromCsv();
-        } catch (FileNotFoundException e) {
-            System.out.println("Couldn't load data from csv.");
-        }
+//        try {
+//            service.loadFromCsv();
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Couldn't load data from csv.");
+//        }
+
+//        Reading users, organizers, auctions and bids
+        service.loadFromDb();
 
         // 1. Creating a card for a user
         Card bobCard = service.createCard(100000, "RON");
@@ -112,10 +117,20 @@ public class Main {
         System.out.println("\nTrying to cancel an auction after it's been canceled:");
         bobOrganzier.cancelAuction(bobServiceAuction);
 
-        try {
-            service.saveToCsv();
-        } catch (IOException e) {
-            System.out.println("Couldn't save data to csv.");
-        }
+//        Creating users, organizers, auctions and bids
+        service.saveToDb();
+
+        DatabaseService db = DatabaseService.getInstance();
+//        Updaring users
+        miguel.setName("Miguel magnificul");
+        db.updateUser(miguel);
+//        Deleting users
+        db.deleteUser(bob);
+
+//        try {
+//            service.saveToCsv();
+//        } catch (IOException e) {
+//            System.out.println("Couldn't save data to csv.");
+//        }
     }
 }

@@ -18,8 +18,8 @@ import java.util.UUID;
 public class Service {
     private static Service instance = null;
     private final AuditService auditService;
-    private final List<User> users = new ArrayList<>();
-    private final List<Organizer> organizers = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
+    private List<Organizer> organizers = new ArrayList<>();
 
     private Service() {
         auditService = AuditService.getInstance();
@@ -54,6 +54,31 @@ public class Service {
     public Price createPrice(double value, String currency) {
         auditService.log("create_price");
         return new Price(value, currency);
+    }
+
+    public void saveToDb() {
+        DatabaseService db = DatabaseService.getInstance();
+        db.wipe();
+
+        for (User user : users) {
+            db.createUser(user);
+        }
+        for (Organizer organizer : organizers) {
+            db.createOrganizer(organizer);
+
+            for (Auction auction : organizer.getAuctions()) {
+                db.createAuction(auction);
+            }
+        }
+    }
+
+    public void loadFromDb() {
+        DatabaseService db = DatabaseService.getInstance();
+
+        users = db.getUsersData();
+        organizers = db.getOrganizersData();
+
+        System.out.println(organizers);
     }
 
     public void saveToCsv() throws IOException {

@@ -22,7 +22,7 @@ public abstract class Auction {
     protected final String location;
     protected final Price initialPrice;
     protected Price currentPrice;
-    protected final List<Bid> bids = new ArrayList<>();
+    protected List<Bid> bids = new ArrayList<>();
     protected boolean canceled = false;
     protected final AuditService auditService;
 
@@ -210,5 +210,13 @@ public abstract class Auction {
                 bids.add(new Bid(UUID.fromString(data.get(0)), Price.fromString(data.get(3)), user.get()));
             }
         }
+    }
+
+    public Organizer getOrganizer() {
+        return organizer;
+    }
+
+    public void setBids(List<Bid> bids) {
+        this.bids = bids;
     }
 }
